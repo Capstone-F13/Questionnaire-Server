@@ -1,4 +1,7 @@
 Questionnaire-Server
 ====================
 
-The Questionnaire Server lives here
+## To run the server
+'''
+python manage.py runserver
+'''
