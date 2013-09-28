@@ -1,6 +1,9 @@
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+import dj_database_url
 import os
 import south
+
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,13 +15,17 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-# TODO(danielgur): setup testing and prod databases config
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(SITE_ROOT, 'database.db'),
+if bool(os.environ.get('LOCAL_DEV', False)):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(SITE_ROOT, 'database.db'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': dj_database_url.config(default='postgres://localhost')
+    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts

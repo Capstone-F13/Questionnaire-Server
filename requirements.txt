@@ -3,3 +3,4 @@ PIL==1.1.7
 django-tastypie==0.9.11
 South
 django-suit
+dj-database-url==0.2.0
