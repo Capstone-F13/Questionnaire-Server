@@ -32,7 +32,7 @@ class UserAnswer(models.Model):
     
         
 class Study(models.Model):
-    creator = models.ForeignKey('Administrator')
+    creator = models.ForeignKey('Administrator', related_name="created_studies")
     administrators = models.ManyToManyField('Administrator')
     participants = models.ManyToManyField('Patient', blank=True)
     created = models.DateTimeField(auto_now_add=True)
