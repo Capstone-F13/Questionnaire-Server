@@ -12,7 +12,7 @@ class Question(models.Model):
     question = models.CharField(max_length=500)
     is_multiple_choice = models.BooleanField(default=False)
     multiple_choice_answer = models.ManyToManyField(MultipleChoiceAnswer, blank=True)
-    survey = models.ForeignKey('Survey', blank=True)
+    survey = models.ForeignKey('Survey')
 
     def __unicode__(self):
         return self.question
