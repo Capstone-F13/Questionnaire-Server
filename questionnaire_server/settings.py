@@ -137,6 +137,8 @@ INSTALLED_APPS = (
     'south',
     'tastypie',
     'questionnaire_server',
+    'provider',
+    'provider.oauth2',
 )
 
 # A sample logging configuration. The only tangible logging
