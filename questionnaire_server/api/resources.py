@@ -23,5 +23,3 @@ class QuestionResource(ModelResource):
         queryset = Question.objects.all()
         allowed_methods = ['get']
         include_resource_uri = False
-
-# TODO: setup UserAnswerResource for posting answers from user.

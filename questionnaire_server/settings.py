@@ -106,7 +106,8 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # TODO: This is dangerous, we need this commented for local dev to avoid Cross Site Scripting errors!
+    #'django.middleware.csrf.CsrfViewMiddleware', 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:

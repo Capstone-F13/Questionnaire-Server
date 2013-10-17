@@ -13,4 +13,5 @@ v1_api.register(QuestionResource())
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(v1_api.urls)),
+    url(r'answer/', 'questionnaire_server.views.submit_answer')
 )
