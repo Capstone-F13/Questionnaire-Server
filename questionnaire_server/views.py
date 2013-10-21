@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.utils import simplejson
+from provider.oauth2.models import AccessToken
 
 from questionnaire_server.models import MultipleChoiceAnswer, Patient, Question, UserAnswer
 
@@ -35,4 +36,25 @@ def submit_answer(request):
 
     else:
         return HttpResponse(simplejson.dumps({ "error" : "Request needs to post json" }))
+
+
+def get_patients(request, token=None):
+    """ return a list of patient id's based off a token that is generated for a user """
+
+    if request.method == 'GET':
+        if not token:
+            return HttpResponse(simplejson.dumps({ "error" : "Request needs a token" }))
+        access_token = AccessToken.objects.filter(token=token)
+        if not access_token:
+            return HttpResponse(simplejson.dumps({ "error" : "Access Token is not valid" }))
+        user = access_token[0].user
+        patients = Patient.objects.filter(administrators=user)
+
+        patient_ids = []
+        for patient in patients:
+            patient_ids.append(patient.patient_id)
+
+        return HttpResponse(simplejson.dumps({ "patient_ids" : patient_ids }))
+    else:
+        return HttpResponse(simplejson.dumps({ "error" : "Request needs to be a GET request" }))
 

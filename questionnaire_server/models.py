@@ -42,7 +42,6 @@ class Study(models.Model):
         return self.name
 
 
-
 class Patient(models.Model):
     patient_id = models.CharField(max_length=100, primary_key=True)
     is_active = models.BooleanField(default=True)
@@ -51,6 +50,7 @@ class Patient(models.Model):
     phone_number = models.CharField(max_length=20, blank=True)
     email = models.EmailField(max_length=100, blank=True)
     notes = models.TextField(blank=True)
+    administrators = models.ManyToManyField(User)
 
     def __unicode__(self):
         return self.patient_id
