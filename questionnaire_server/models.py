@@ -26,6 +26,7 @@ class UserAnswer(models.Model):
     answer = models.CharField(max_length=500)
     question = models.ForeignKey(Question)
     patient = models.ForeignKey('Patient')
+    # TODO: add timestamp, also make sure unique!
 
     def __unicode__(self):
         return self.answer

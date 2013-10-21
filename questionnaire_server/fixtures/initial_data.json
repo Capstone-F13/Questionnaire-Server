@@ -1,0 +1,91 @@
+[
+  {
+    "pk": 1,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "answer1"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "answer2"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "questionnaire_server.question",
+    "fields": {
+      "is_multiple_choice": false,
+      "question": "What is your name?",
+      "survey": 1,
+      "multiple_choice_answer": []
+    }
+  },
+  {
+    "pk": 2,
+    "model": "questionnaire_server.question",
+    "fields": {
+      "is_multiple_choice": true,
+      "question": "multiple choice question, please select one",
+      "survey": 1,
+      "multiple_choice_answer": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "pk": 1,
+    "model": "questionnaire_server.survey",
+    "fields": {
+      "study": 1
+    }
+  },
+  {
+    "pk": 1,
+    "model": "questionnaire_server.study",
+    "fields": {
+      "administrators": [
+        1
+      ],
+      "participants": [
+        "Patient1"
+      ],
+      "created": "2013-10-21T06:32:59.608Z",
+      "name": "Study1",
+      "creator": 1
+    }
+  },
+  {
+    "pk": "Patient1",
+    "model": "questionnaire_server.patient",
+    "fields": {
+      "phone_number": "",
+      "first_name": "",
+      "last_name": "",
+      "notes": "",
+      "is_active": true,
+      "administrators": [
+        1
+      ],
+      "email": ""
+    }
+  },
+  {
+    "pk": "Patient2",
+    "model": "questionnaire_server.patient",
+    "fields": {
+      "phone_number": "",
+      "first_name": "",
+      "last_name": "",
+      "notes": "",
+      "is_active": true,
+      "administrators": [
+        1
+      ],
+      "email": ""
+    }
+  }
+]
