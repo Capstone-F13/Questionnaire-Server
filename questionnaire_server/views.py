@@ -54,7 +54,7 @@ def get_patients(request, token=None):
         for patient in patients:
             patient_ids.append(patient.patient_id)
 
-        return HttpResponse(simplejson.dumps({ "patient_ids" : patient_ids }))
+        return HttpResponse(simplejson.dumps({ "patient_ids" : patient_ids }), mimetype="application/json")
     else:
         return HttpResponse(simplejson.dumps({ "error" : "Request needs to be a GET request" }))
 
