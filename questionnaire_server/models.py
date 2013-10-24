@@ -20,13 +20,17 @@ class Question(models.Model):
 
 class Survey(models.Model):
     study = models.ForeignKey('Study')
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class UserAnswer(models.Model):
     answer = models.CharField(max_length=500)
     question = models.ForeignKey(Question)
     patient = models.ForeignKey('Patient')
-    # TODO: add timestamp, also make sure unique!
+    created = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = (("question", "patient"),)
 
     def __unicode__(self):
         return self.answer
