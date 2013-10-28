@@ -1,5 +1,5 @@
 Django==1.4.1
-django-tastypie==0.9.11
+wadofstuff-django-serializers
 South
 django-suit
 psycopg2==2.4.5

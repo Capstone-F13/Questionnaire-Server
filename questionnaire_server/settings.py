@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/New_York'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -62,6 +62,11 @@ MEDIA_ROOT = ''
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = ''
+
+# Custom serializer: https://code.google.com/p/wadofstuff/wiki/DjangoFullSerializers
+SERIALIZATION_MODULES = {
+    'json': 'wadofstuff.django.serializers.json'
+}
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -135,7 +140,6 @@ INSTALLED_APPS = (
     'suit',
     'django.contrib.admin',
     'south',
-    'tastypie',
     'questionnaire_server',
     'provider',
     'provider.oauth2',

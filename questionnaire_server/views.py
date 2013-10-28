@@ -1,3 +1,4 @@
+from django.core import serializers
 from django.http import HttpResponse
 from django.utils import simplejson
 from provider.oauth2.models import AccessToken
@@ -91,3 +92,10 @@ def logout_patient(request):
             return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }))
     else:
         return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }))
+
+
+def get_questions(request):
+    questions = Question.objects.all()
+    data = serializers.serialize('json', questions, indent=2, relations=('multiple_choice_answer',))
+    return HttpResponse(data, mimetype='application/json')
+
