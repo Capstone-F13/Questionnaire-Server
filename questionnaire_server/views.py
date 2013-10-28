@@ -91,11 +91,28 @@ def logout_patient(request):
         except KeyError as e:
             return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }))
     else:
-        return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }))
+        return HttpResponse(simplejson.dumps({ "error" : "Expecting a DELETE request" }))
 
 
-def get_questions(request):
-    questions = Question.objects.all()
-    data = serializers.serialize('json', questions, indent=2, relations=('multiple_choice_answer',))
-    return HttpResponse(data, mimetype='application/json')
+def get_questions(request, access_token=None, patient_id=None):
+    """ get a list of questions for a patient """
+    if request.method == 'GET':
+        patient = Patient.objects.filter(patient_id=patient_id)
+
+        if not patient:
+            return HttpResponse(simplejson.dumps({ "error" : "Patient id not found" }))
+        else:
+            patient = patient[0]
+
+        if not patient.access_token:
+            return HttpResponse(simplejson.dumps({ "error" : "Access token not set for patient" }))
+        if patient.access_token != access_token:
+            return HttpResponse(simplejson.dumps({ "error" : "Access token not valid for patient" }))
+
+        # TODO: get the correct survey here
+        questions = Question.objects.all()
+        data = serializers.serialize('json', questions, indent=2, relations=('multiple_choice_answer',))
+        return HttpResponse(data, mimetype='application/json')
+    else:
+        return HttpResponse(simplejson.dumps({ "error" : "Expecting a GET request" }))
 
