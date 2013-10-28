@@ -71,11 +71,11 @@ def login_patient(request):
                 return HttpResponse(simplejson.dumps({ "success" : "Patient updated with access token" }),
                                                      mimetype='application/json')
             else:
-                return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }))
+                return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }), mimetype='application/json')
         except KeyError as e:
-            return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }))
+            return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }), mimetype='application/json')
     else:
-        return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }))
+        return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }), mimetype='application/json')
 
 
 def logout_patient(request):
