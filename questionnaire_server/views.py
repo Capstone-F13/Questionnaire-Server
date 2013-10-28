@@ -32,7 +32,7 @@ def submit_answer(request):
 
         except KeyError as e:
             return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }))
-        return HttpResponse(simplejson.dumps({ "success" : "Got json data" }))
+        return HttpResponse(simplejson.dumps({ "success" : "Answer submission successful" }))
 
     else:
         return HttpResponse(simplejson.dumps({ "error" : "Request needs to post json" }))
@@ -56,5 +56,21 @@ def get_patients(request, token=None):
 
         return HttpResponse(simplejson.dumps({ "patient_ids" : patient_ids }), mimetype="application/json")
     else:
-        return HttpResponse(simplejson.dumps({ "error" : "Request needs to be a GET request" }))
+        return HttpResponse(simplejson.dumps({ "error" : "Expecting a GET request" }))
 
+
+def register_patient(request):
+    """ store an access token for a patient so that we can use the token for validation """
+    if request.method == 'POST':
+        json_data = simplejson.loads(request.body)
+        try:
+            patient_id = json_data['patient_id']
+            access_token = json_data['access_token']
+            if Patient.objects.filter(patient_id=patient_id).update(access_token=access_token) == 1:
+                return HttpResponse(simplejson.dumps({ "success" : "Patient updated with access token" }))
+            else:
+                return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }))
+        except KeyError as e:
+            return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }))
+    else:
+        return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }))

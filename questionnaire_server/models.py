@@ -28,7 +28,7 @@ class UserAnswer(models.Model):
     question = models.ForeignKey(Question)
     patient = models.ForeignKey('Patient')
     created = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         unique_together = (("question", "patient"),)
 
@@ -56,6 +56,7 @@ class Patient(models.Model):
     email = models.EmailField(max_length=100, blank=True)
     notes = models.TextField(blank=True)
     administrators = models.ManyToManyField(User)
+    access_token = models.CharField(max_length=300, blank=True)
 
     def __unicode__(self):
         return self.patient_id
