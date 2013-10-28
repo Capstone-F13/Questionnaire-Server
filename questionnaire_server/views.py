@@ -68,7 +68,8 @@ def login_patient(request):
             patient_id = json_data['patient_id']
             access_token = json_data['access_token']
             if Patient.objects.filter(patient_id=patient_id).update(access_token=access_token) == 1:
-                return HttpResponse(simplejson.dumps({ "success" : "Patient updated with access token" }))
+                return HttpResponse(simplejson.dumps({ "success" : "Patient updated with access token" }),
+                                                     mimetype='application/json')
             else:
                 return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }))
         except KeyError as e:
@@ -85,7 +86,8 @@ def logout_patient(request):
         try:
             patient_id = json_data['patient_id']
             if Patient.objects.filter(patient_id=patient_id).update(access_token='') == 1:
-                return HttpResponse(simplejson.dumps({ "success" : "Access token removed from patient" }))
+                return HttpResponse(simplejson.dumps({ "success" : "Access token removed from patient" }),
+                                    mimetype='application/json')
             else:
                 return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }))
         except KeyError as e:
