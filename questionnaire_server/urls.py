@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^api/', include(v1_api.urls)),
     url(r'^answer/', 'questionnaire_server.views.submit_answer'),
     url(r'^oauth2/', include('provider.oauth2.urls', namespace = 'oauth2')),
-    url(r'^patient/register', 'questionnaire_server.views.register_patient'),
+    url(r'^patient/login', 'questionnaire_server.views.login_patient'),
+    url(r'^patient/logout', 'questionnaire_server.views.logout_patient'),
     url(r'^patients/(?P<token>.+)', 'questionnaire_server.views.get_patients'),
 )

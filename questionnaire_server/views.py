@@ -59,7 +59,7 @@ def get_patients(request, token=None):
         return HttpResponse(simplejson.dumps({ "error" : "Expecting a GET request" }))
 
 
-def register_patient(request):
+def login_patient(request):
     """ store an access token for a patient so that we can use the token for validation """
     if request.method == 'POST':
         json_data = simplejson.loads(request.body)
@@ -68,6 +68,23 @@ def register_patient(request):
             access_token = json_data['access_token']
             if Patient.objects.filter(patient_id=patient_id).update(access_token=access_token) == 1:
                 return HttpResponse(simplejson.dumps({ "success" : "Patient updated with access token" }))
+            else:
+                return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }))
+        except KeyError as e:
+            return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }))
+    else:
+        return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }))
+
+
+def logout_patient(request):
+    """ remove an access token for a patient, called once iOS app logs out """
+    if request.method == 'DELETE':
+        print 'made it'
+        json_data = simplejson.loads(request.body)
+        try:
+            patient_id = json_data['patient_id']
+            if Patient.objects.filter(patient_id=patient_id).update(access_token='') == 1:
+                return HttpResponse(simplejson.dumps({ "success" : "Access token removed from patient" }))
             else:
                 return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }))
         except KeyError as e:
