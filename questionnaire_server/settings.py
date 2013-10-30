@@ -29,8 +29,7 @@ else:
             'NAME': 'dbdatabase',
             'USER': 'dbuser',
             'PASSWORD': 'capstonef13',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
+            'HOST': '',
         }
     }
 
