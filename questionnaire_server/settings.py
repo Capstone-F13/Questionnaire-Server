@@ -24,7 +24,11 @@ if bool(os.environ.get('LOCAL_DEV', False)):
     }
 else:
     DATABASES = {
-        'default': dj_database_url.config(default='postgres://localhost')
+        'default': dj_database_url.config(default='postgres://localhost'),
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME': 'questionnaire-database',
+        'USER': 'questionnaire',
+        'PASSWORD': 'capstonef13',
     }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
