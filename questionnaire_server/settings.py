@@ -26,7 +26,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE':'django.db.backends.postgresql_psycopg2',
-            'NAME': 'questionnaire-database',
+            'NAME': 'questionnairedatabase',
             'USER': 'questionnaire',
             'PASSWORD': 'capstonef13',
             'HOST': '127.0.0.1',
