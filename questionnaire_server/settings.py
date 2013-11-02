@@ -143,7 +143,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'suit',
+    'grappelli',
     'django.contrib.admin',
     'south',
     'questionnaire_server',

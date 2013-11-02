@@ -4,6 +4,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),
     url(r'^answer/', 'questionnaire_server.views.submit_answer'),
     url(r'^oauth2/', include('provider.oauth2.urls', namespace = 'oauth2')),
