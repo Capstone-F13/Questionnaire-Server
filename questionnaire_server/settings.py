@@ -179,3 +179,8 @@ LOGGING = {
         },
     }
 }
+
+
+
+# Grappelli Settings
+GRAPPELLI_ADMIN_TITLE = 'Questionnaire Server'
