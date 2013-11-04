@@ -2,6 +2,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.utils import simplejson
 from provider.oauth2.models import AccessToken
+from django.contrib.auth.models import User
 
 from questionnaire_server.models import MultipleChoiceAnswer, Patient, Question, UserAnswer
 
@@ -25,7 +26,7 @@ def submit_answer(request):
                 answer_text = MultipleChoiceAnswer.objects.get(pk=answer_id)
 
             if not answer_text:
-                return HttpResponse(simplejson.dumps({ "error" : "answer/answed_id field is required!" }))
+                return HttpResponse(simplejson.dumps({ "error" : "answer/answer_id field is required!" }))
 
             # TODO: check if the answer already exists
             user_answer = UserAnswer(answer=answer_text, question=question, patient=patient)
@@ -72,6 +73,33 @@ def login_patient(request):
                                                      mimetype='application/json')
             else:
                 return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }), mimetype='application/json')
+        except KeyError as e:
+            return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }), mimetype='application/json')
+    else:
+        return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }), mimetype='application/json')
+
+
+def create_patient(request):
+    """ create a patient and store an access token for the patient """
+    if request.method == 'POST':
+        json_data = simplejson.loads(request.body)
+        try:
+            patient_id = json_data['patient_id']
+            access_token = json_data['access_token']
+            administrator_username = None
+            if 'administrator_username' in json_data:
+                administrator_username = json_data['administrator_username']
+            if Patient.objects.filter(patient_id=patient_id).update(access_token=access_token) == 1:
+                return HttpResponse(simplejson.dumps({ "success" : "Patient already exists. Updated with access token" }),
+                                                     mimetype='application/json')
+            else:
+                patient = Patient(patient_id=patient_id, access_token=access_token)
+                patient.save()
+                if administrator_username:
+                    administrator_id = User.objects.get(username=administrator_username).id
+                    patient.administrators.add(administrator_id)
+                return HttpResponse(simplejson.dumps({ "success" : "Patient created with access token" }),
+                                                     mimetype='application/json')
         except KeyError as e:
             return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }), mimetype='application/json')
     else:
