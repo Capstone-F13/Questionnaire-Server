@@ -3,24 +3,116 @@
     "pk": 1,
     "model": "questionnaire_server.multiplechoiceanswer",
     "fields": {
-      "text": "answer1"
+      "text": "Very Low"
     }
   },
   {
     "pk": 2,
     "model": "questionnaire_server.multiplechoiceanswer",
     "fields": {
-      "text": "answer2"
+      "text": "Low"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Slightly Low"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Neither Low nor High"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Slightly High"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "High"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Very High"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Strongly Disagree"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Disagree"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Slightly Disagree"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Neither Agree nor Disagree"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Slightly Agree"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Agree"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "questionnaire_server.multiplechoiceanswer",
+    "fields": {
+      "text": "Strongly Agree"
     }
   },
   {
     "pk": 1,
     "model": "questionnaire_server.question",
     "fields": {
-      "is_multiple_choice": false,
-      "question": "What is your name?",
+      "is_multiple_choice": true,
+      "question": "My current stress level is:",
       "survey": 1,
-      "multiple_choice_answer": []
+      "multiple_choice_answer": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
     }
   },
   {
@@ -28,11 +120,70 @@
     "model": "questionnaire_server.question",
     "fields": {
       "is_multiple_choice": true,
-      "question": "multiple choice question, please select one",
+      "question": "I have little control over important things in my life.",
       "survey": 1,
       "multiple_choice_answer": [
-        1,
-        2
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    }
+  },
+  {
+    "pk": 3,
+    "model": "questionnaire_server.question",
+    "fields": {
+      "is_multiple_choice": true,
+      "question": "I am confident in my ability to handle personal problems.",
+      "survey": 1,
+      "multiple_choice_answer": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    }
+  },
+  {
+    "pk": 4,
+    "model": "questionnaire_server.question",
+    "fields": {
+      "is_multiple_choice": true,
+      "question": "Things are not going my way.",
+      "survey": 1,
+      "multiple_choice_answer": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    }
+  },
+  {
+    "pk": 5,
+    "model": "questionnaire_server.question",
+    "fields": {
+      "is_multiple_choice": true,
+      "question": "Only good things lie before me.",
+      "survey": 1,
+      "multiple_choice_answer": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
       ]
     }
   },
