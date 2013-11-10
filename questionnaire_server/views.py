@@ -79,6 +79,23 @@ def login_patient(request):
         return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }), mimetype='application/json')
 
 
+def logout_patient(request):
+    """ remove an access token for a patient, called once iOS app logs out """
+    if request.method == 'POST':
+        json_data = simplejson.loads(request.body)
+        try:
+            patient_id = json_data['patient_id']
+            if Patient.objects.filter(patient_id=patient_id).update(access_token='') == 1:
+                return HttpResponse(simplejson.dumps({ "success" : "Access token removed from patient" }),
+                                    mimetype='application/json')
+            else:
+                return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }))
+        except KeyError as e:
+            return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }))
+    else:
+        return HttpResponse(simplejson.dumps({ "error" : "Expecting a DELETE request" }))
+
+
 def create_patient(request):
     """ create a patient and store an access token for the patient """
     if request.method == 'POST':
@@ -104,24 +121,6 @@ def create_patient(request):
             return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }), mimetype='application/json')
     else:
         return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }), mimetype='application/json')
-
-
-def logout_patient(request):
-    """ remove an access token for a patient, called once iOS app logs out """
-    if request.method == 'DELETE':
-        print 'made it'
-        json_data = simplejson.loads(request.body)
-        try:
-            patient_id = json_data['patient_id']
-            if Patient.objects.filter(patient_id=patient_id).update(access_token='') == 1:
-                return HttpResponse(simplejson.dumps({ "success" : "Access token removed from patient" }),
-                                    mimetype='application/json')
-            else:
-                return HttpResponse(simplejson.dumps({ "error" : "Patient id does not exist!" }))
-        except KeyError as e:
-            return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }))
-    else:
-        return HttpResponse(simplejson.dumps({ "error" : "Expecting a DELETE request" }))
 
 
 def get_questions(request, access_token=None, patient_id=None):
