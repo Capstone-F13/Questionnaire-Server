@@ -242,21 +242,6 @@
   },
   {
     "pk": 1,
-    "model": "questionnaire_server.patient",
-    "fields": {
-      "phone_number": "",
-      "first_name": "",
-      "last_name": "",
-      "notes": "",
-      "is_active": true,
-      "administrators": [
-        1
-      ],
-      "email": ""
-    }
-  },
-  {
-    "pk": 1,
     "model": "oauth2.client",
     "fields": {
       "name": "",
