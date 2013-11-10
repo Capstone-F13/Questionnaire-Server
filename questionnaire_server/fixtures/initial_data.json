@@ -239,5 +239,44 @@
       ],
       "email": ""
     }
+  },
+  {
+    "pk": 1,
+    "model": "questionnaire_server.patient",
+    "fields": {
+      "phone_number": "",
+      "first_name": "",
+      "last_name": "",
+      "notes": "",
+      "is_active": true,
+      "administrators": [
+        1
+      ],
+      "email": ""
+    }
+  },
+  {
+    "pk": 1,
+    "model": "oauth2.client",
+    "fields": {
+      "name": "",
+      "url": "http://create.cs.kent.edu/",
+      "client_type": 0,
+      "redirect_uri": "http://create.cs.kent.edu/",
+      "user": 1,
+      "client_id": "19338b8cd902c96dc495",
+      "client_secret": "b2faeb98ba2cf71f53e7045ad0b30782a65a148a"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "oauth2.accesstoken",
+    "fields": {
+      "scope": 6,
+      "token": "b38b6a475af0685e3bf9b7002e2d251e0caefe48",
+      "client": 1,
+      "user": 1,
+      "expires": "2014-11-04T16:23:27.682Z"
+    }
   }
 ]
