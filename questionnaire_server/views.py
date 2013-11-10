@@ -19,13 +19,12 @@ def submit_answer(request):
 
             if 'response' in json_data:
                 response = json_data['response']
-                print response
                 for r in response:
                     question_id = r['question_id']
                     question = Question.objects.get(pk=question_id)
                     answer_text = None
 
-                    if 'answer' in json_data:
+                    if 'answer' in r:
                         answer_text = r['answer']
                     elif 'answer_id' in json_data:
                         answer_id = r['answer_id']
