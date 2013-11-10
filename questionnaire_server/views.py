@@ -93,7 +93,7 @@ def logout_patient(request):
         except KeyError as e:
             return HttpResponse(simplejson.dumps({ "error" : "Malformed data!", "message" : e }))
     else:
-        return HttpResponse(simplejson.dumps({ "error" : "Expecting a DELETE request" }))
+        return HttpResponse(simplejson.dumps({ "error" : "Expecting a POST request" }))
 
 
 def create_patient(request):
