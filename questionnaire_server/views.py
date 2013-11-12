@@ -4,7 +4,7 @@ from django.utils import simplejson
 from provider.oauth2.models import AccessToken
 from django.contrib.auth.models import User
 
-from questionnaire_server.models import MultipleChoiceAnswer, Patient, Question, UserAnswer, Survey
+from questionnaire_server.models import MultipleChoiceAnswer, Patient, Question, UserAnswer
 
 def submit_answer(request):
     # NOTE: This will be made more modular asap, just testing if it works correctly first :)
@@ -153,17 +153,9 @@ def get_questions(request, access_token=None, patient_id=None):
         if patient.access_token != access_token:
             return _generate_response({ "error" : "Access token not valid for patient" })
 
-        next_survey = {}
-
-        all_surveys = Survey.objects.filter(participants=patient_id)
-        completed_surveys = patient.answered_surveys.all()
-
-        for survey in all_surveys:
-            if survey not in completed_surveys:
-                next_survey = survey
-                break
-
-        data = serializers.serialize('json', [next_survey], indent=2, relations=('multiple_choice_answer',))
+        # TODO: get the correct survey here
+        questions = Question.objects.all()
+        data = serializers.serialize('json', questions, indent=2, relations=('multiple_choice_answer',))
         return HttpResponse(data, mimetype='application/json')
     else:
         return _generate_response({ "error" : "Expecting a GET request" })

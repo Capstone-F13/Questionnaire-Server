@@ -103,6 +103,7 @@
     "fields": {
       "is_multiple_choice": true,
       "question": "My current stress level is:",
+      "survey": 1,
       "multiple_choice_answer": [
         1,
         2,
@@ -120,6 +121,7 @@
     "fields": {
       "is_multiple_choice": true,
       "question": "I have little control over important things in my life.",
+      "survey": 1,
       "multiple_choice_answer": [
         8,
         9,
@@ -137,6 +139,7 @@
     "fields": {
       "is_multiple_choice": true,
       "question": "I am confident in my ability to handle personal problems.",
+      "survey": 1,
       "multiple_choice_answer": [
         8,
         9,
@@ -154,6 +157,7 @@
     "fields": {
       "is_multiple_choice": true,
       "question": "Things are not going my way.",
+      "survey": 1,
       "multiple_choice_answer": [
         8,
         9,
@@ -171,6 +175,7 @@
     "fields": {
       "is_multiple_choice": true,
       "question": "Only good things lie before me.",
+      "survey": 1,
       "multiple_choice_answer": [
         8,
         9,
@@ -186,6 +191,14 @@
     "pk": 1,
     "model": "questionnaire_server.survey",
     "fields": {
+      "study": 1,
+      "created": "2013-10-21T06:32:59.608Z"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "questionnaire_server.study",
+    "fields": {
       "administrators": [
         1
       ],
@@ -193,15 +206,8 @@
         "Patient1"
       ],
       "created": "2013-10-21T06:32:59.608Z",
-      "name": "First Survey",
-      "creator": 1,
-      "questions": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "name": "Study1",
+      "creator": 1
     }
   },
   {

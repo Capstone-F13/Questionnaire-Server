@@ -12,9 +12,15 @@ class Question(models.Model):
     question = models.CharField(max_length=500)
     is_multiple_choice = models.BooleanField(default=False)
     multiple_choice_answer = models.ManyToManyField(MultipleChoiceAnswer, blank=True)
+    survey = models.ForeignKey('Survey')
 
     def __unicode__(self):
         return self.question
+
+
+class Survey(models.Model):
+    study = models.ForeignKey('Study')
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class UserAnswer(models.Model):
@@ -30,13 +36,12 @@ class UserAnswer(models.Model):
         return self.answer
 
 
-class Survey(models.Model):
+class Study(models.Model):
     name = models.CharField(max_length=500)
     creator = models.ForeignKey(User, related_name="created_studies")
     administrators = models.ManyToManyField(User)
     participants = models.ManyToManyField('Patient', blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    questions = models.ManyToManyField('Question', blank=True)
 
     def __unicode__(self):
         return self.name
@@ -52,7 +57,6 @@ class Patient(models.Model):
     notes = models.TextField(blank=True)
     administrators = models.ManyToManyField(User)
     access_token = models.CharField(max_length=300, blank=True)
-    answered_surveys =  models.ManyToManyField(Survey, blank=True)
 
     def __unicode__(self):
         return self.patient_id
