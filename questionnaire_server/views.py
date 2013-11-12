@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from questionnaire_server.models import MultipleChoiceAnswer, Patient, Question, UserAnswer, Survey
 
 def submit_answer(request):
+    # NOTE: This will be made more modular asap, just testing if it works correctly first :)
     if request.method == 'POST':
         json_data = simplejson.loads(request.body)
         try:
@@ -17,12 +18,42 @@ def submit_answer(request):
             # verify that the access token matches patient id, or kill answer submission
 
             if 'response' in json_data:
-                for entry in json_data['response']:
-                    if _add_answer(patient, entry) == 'NO_ANSWER':
-                        _generate_response({ "error" : "answer/answer_id field is required!" })
+                response = json_data['response']
+                for r in response:
+                    question_id = r['question_id']
+                    question = Question.objects.get(pk=question_id)
+                    answer_text = None
+
+                    if 'answer' in r:
+                        answer_text = r['answer']
+                    elif 'answer_id' in json_data:
+                        answer_id = r['answer_id']
+                        answer_text = MultipleChoiceAnswer.objects.get(pk=answer_id)
+
+                    if not answer_text:
+                        return _generate_response({ "error" : "answer/answer_id field is required!" })
+
+                    user_answer = UserAnswer(answer=answer_text, question=question, patient=patient)
+                    user_answer.save()
             else:
-                if _add_answer(patient, json_data) == 'NO_ANSWER':
-                    _generate_response({ "error" : "answer/answer_id field is required!" })
+                question_id = json_data['question_id']
+                # TODO: may be good to ensure the question exists
+                question = Question.objects.get(pk=question_id)
+                answer_text = None
+
+                if 'answer' in json_data:
+                    answer_text = json_data['answer']
+                elif 'answer_id' in json_data:
+                    answer_id = json_data['answer_id']
+                    # TODO: may be good to ensure the answer exists
+                    answer_text = MultipleChoiceAnswer.objects.get(pk=answer_id)
+
+                if not answer_text:
+                    return _generate_response({ "error" : "answer/answer_id field is required!" })
+
+                # TODO: check if the answer already exists
+                user_answer = UserAnswer(answer=answer_text, question=question, patient=patient)
+                user_answer.save()
 
         except KeyError as e:
             return _generate_response({ "error" : "Malformed data!", "message" : e })
@@ -136,25 +167,6 @@ def get_questions(request, access_token=None, patient_id=None):
         return HttpResponse(data, mimetype='application/json')
     else:
         return _generate_response({ "error" : "Expecting a GET request" })
-
-
-def _add_answer(patient, entry):
-    question_id = entry['question_id']
-    question = Question.objects.get(pk=question_id)
-    answer_text = None
-
-    if 'answer' in entry:
-        answer_text = entry['answer']
-    elif 'answer_id' in entry:
-        answer_id = entry['answer_id']
-        answer_text = MultipleChoiceAnswer.objects.get(pk=answer_id)
-
-    if not answer_text:
-        return 'NO_ANSWER'
-
-    user_answer = UserAnswer(answer=answer_text, question=question, patient=patient)
-    user_answer.save()
-
 
 def _generate_response(data):
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
