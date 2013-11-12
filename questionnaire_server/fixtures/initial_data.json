@@ -101,9 +101,9 @@
     "pk": 1,
     "model": "questionnaire_server.question",
     "fields": {
+      "is_ascending_positivity": false,
       "is_multiple_choice": true,
       "question": "My current stress level is:",
-      "survey": 1,
       "multiple_choice_answer": [
         1,
         2,
@@ -119,9 +119,9 @@
     "pk": 2,
     "model": "questionnaire_server.question",
     "fields": {
+      "is_ascending_positivity": false,
       "is_multiple_choice": true,
       "question": "I have little control over important things in my life.",
-      "survey": 1,
       "multiple_choice_answer": [
         8,
         9,
@@ -137,9 +137,9 @@
     "pk": 3,
     "model": "questionnaire_server.question",
     "fields": {
+      "is_ascending_positivity": true,
       "is_multiple_choice": true,
       "question": "I am confident in my ability to handle personal problems.",
-      "survey": 1,
       "multiple_choice_answer": [
         8,
         9,
@@ -155,9 +155,9 @@
     "pk": 4,
     "model": "questionnaire_server.question",
     "fields": {
+      "is_ascending_positivity": false,
       "is_multiple_choice": true,
       "question": "Things are not going my way.",
-      "survey": 1,
       "multiple_choice_answer": [
         8,
         9,
@@ -173,9 +173,9 @@
     "pk": 5,
     "model": "questionnaire_server.question",
     "fields": {
+      "is_ascending_positivity": true,
       "is_multiple_choice": true,
       "question": "Only good things lie before me.",
-      "survey": 1,
       "multiple_choice_answer": [
         8,
         9,
@@ -191,32 +191,38 @@
     "pk": 1,
     "model": "questionnaire_server.survey",
     "fields": {
-      "study": 1,
-      "created": "2013-10-21T06:32:59.608Z"
-    }
-  },
-  {
-    "pk": 1,
-    "model": "questionnaire_server.study",
-    "fields": {
       "administrators": [
         1
       ],
       "participants": [
-        "Patient1"
+        "sharon_jones",
+        "brianna_cummins",
+        "kayla_carter",
+        "alicia_hittaker",
+        "trenique_walker",
+        "danesha_griffin",
+        "nickeyla_miller",
+        "maisha_bidding"
       ],
       "created": "2013-10-21T06:32:59.608Z",
       "name": "Study1",
-      "creator": 1
+      "creator": 1,
+      "questions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     }
   },
   {
-    "pk": "Patient1",
+    "pk": "sharon_jones",
     "model": "questionnaire_server.patient",
     "fields": {
       "phone_number": "",
-      "first_name": "",
-      "last_name": "",
+      "first_name": "ShaRon",
+      "last_name": "Jones",
       "notes": "",
       "is_active": true,
       "administrators": [
@@ -226,12 +232,102 @@
     }
   },
   {
-    "pk": "Patient2",
+    "pk": "brianna_cummins",
     "model": "questionnaire_server.patient",
     "fields": {
       "phone_number": "",
-      "first_name": "",
-      "last_name": "",
+      "first_name": "Brianna",
+      "last_name": "Cummins",
+      "notes": "",
+      "is_active": true,
+      "administrators": [
+        1
+      ],
+      "email": ""
+    }
+  },
+  {
+    "pk": "kayla_carter",
+    "model": "questionnaire_server.patient",
+    "fields": {
+      "phone_number": "",
+      "first_name": "Kayla",
+      "last_name": "Carter",
+      "notes": "",
+      "is_active": true,
+      "administrators": [
+        1
+      ],
+      "email": ""
+    }
+  },
+  {
+    "pk": "alicia_hittaker",
+    "model": "questionnaire_server.patient",
+    "fields": {
+      "phone_number": "",
+      "first_name": "Alicia",
+      "last_name": "Whittaker",
+      "notes": "",
+      "is_active": true,
+      "administrators": [
+        1
+      ],
+      "email": ""
+    }
+  },
+  {
+    "pk": "trenique_walker",
+    "model": "questionnaire_server.patient",
+    "fields": {
+      "phone_number": "",
+      "first_name": "Trenique",
+      "last_name": "Walker",
+      "notes": "",
+      "is_active": true,
+      "administrators": [
+        1
+      ],
+      "email": ""
+    }
+  },
+  {
+    "pk": "danesha_griffin",
+    "model": "questionnaire_server.patient",
+    "fields": {
+      "phone_number": "",
+      "first_name": "Danesha",
+      "last_name": "Griffin",
+      "notes": "",
+      "is_active": true,
+      "administrators": [
+        1
+      ],
+      "email": ""
+    }
+  },
+  {
+    "pk": "nickeyla_miller",
+    "model": "questionnaire_server.patient",
+    "fields": {
+      "phone_number": "",
+      "first_name": "Nickeyla",
+      "last_name": "Miller",
+      "notes": "",
+      "is_active": true,
+      "administrators": [
+        1
+      ],
+      "email": ""
+    }
+  },
+  {
+    "pk": "maisha_bidding",
+    "model": "questionnaire_server.patient",
+    "fields": {
+      "phone_number": "",
+      "first_name": "Maisha",
+      "last_name": "Bidding",
       "notes": "",
       "is_active": true,
       "administrators": [

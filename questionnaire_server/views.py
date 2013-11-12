@@ -4,7 +4,7 @@ from django.utils import simplejson
 from provider.oauth2.models import AccessToken
 from django.contrib.auth.models import User
 
-from questionnaire_server.models import MultipleChoiceAnswer, Patient, Question, UserAnswer
+from questionnaire_server.models import MultipleChoiceAnswer, Patient, Question, UserAnswer, SurveyResponse
 
 def submit_answer(request):
     if request.method == 'POST':
@@ -14,16 +14,20 @@ def submit_answer(request):
             patient_id = json_data['patient_id']
             patient =  Patient.objects.get(patient_id=patient_id)
 
+            timestamp = json_data['timestamp']
+            score = json_data['score']
+            did_listen = json_data['did_listen']
+
             # verify that the access token matches patient id, or kill answer submission
-
             if 'response' in json_data:
+                survey_response = SurveyResponse(timestamp=timestamp, score=score, did_listen=did_listen, patient=patient)
+                survey_response.save()
                 for entry in json_data['response']:
-                    if _add_answer(patient, entry) == 'NO_ANSWER':
+                    answer = _add_answer(patient, entry)
+                    if answer == 'NO_ANSWER':
                         _generate_response({ "error" : "answer/answer_id field is required!" })
-            else:
-                if _add_answer(patient, json_data) == 'NO_ANSWER':
-                    _generate_response({ "error" : "answer/answer_id field is required!" })
-
+                    else:
+                        survey_response.user_answers.add(answer)
         except KeyError as e:
             return _generate_response({ "error" : "Malformed data!", "message" : e })
         return _generate_response({ "success" : "Answer submission successful" })
@@ -118,7 +122,7 @@ def get_questions(request, access_token=None, patient_id=None):
             patient = patient[0]
 
         if not patient.access_token:
-            return_generate_response({ "error" : "Access token not set for patient" })
+            return _generate_response({ "error" : "Access token not set for patient" })
         if patient.access_token != access_token:
             return _generate_response({ "error" : "Access token not valid for patient" })
 
@@ -146,7 +150,7 @@ def _add_answer(patient, entry):
 
     user_answer = UserAnswer(answer=answer_text, question=question, patient=patient)
     user_answer.save()
-
+    return user_answer
 
 def _generate_response(data):
     return HttpResponse(simplejson.dumps(data), mimetype='application/json')
