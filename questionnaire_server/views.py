@@ -163,7 +163,7 @@ def get_questions(request, access_token=None, patient_id=None):
                 next_survey = survey
                 break
 
-        data = serializers.serialize('json', [next_survey], indent=2, relations=('questions', 'multiple_choice_answer',))
+        data = serializers.serialize('json', [next_survey], indent=2, relations=('multiple_choice_answer',))
         return HttpResponse(data, mimetype='application/json')
     else:
         return _generate_response({ "error" : "Expecting a GET request" })
