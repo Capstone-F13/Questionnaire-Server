@@ -5,3 +5,4 @@ django-grappelli
 psycopg2==2.4.5
 dj-database-url==0.2.0
 django-oauth2-provider
+django-report-builder

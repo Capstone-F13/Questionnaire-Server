@@ -149,6 +149,7 @@ INSTALLED_APPS = (
     'questionnaire_server',
     'provider',
     'provider.oauth2',
+    'report_builder',
 )
 
 # A sample logging configuration. The only tangible logging

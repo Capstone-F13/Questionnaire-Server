@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^patient/logout', 'questionnaire_server.views.logout_patient'),
     url(r'^patients/(?P<token>.+)', 'questionnaire_server.views.get_patients'),
     url(r'^questions/(?P<access_token>.+)/(?P<patient_id>.+)', 'questionnaire_server.views.get_questions'),
+    url(r'^report_builder/', include('report_builder.urls')),
 )
