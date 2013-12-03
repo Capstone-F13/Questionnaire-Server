@@ -185,3 +185,7 @@ LOGGING = {
 
 # Grappelli Settings
 GRAPPELLI_ADMIN_TITLE = 'Questionnaire Server'
+
+# Report Builder Settings
+REPORT_BUILDER_INCLUDE = []
+REPORT_BUILDER_EXCLUDE = ['user'] # Allow all models except User to be accessed
